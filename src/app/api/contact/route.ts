@@ -47,6 +47,20 @@ export async function POST(request: Request) {
       `,
     });
 
+    await resend.emails.send({
+      from,
+      to: [email],
+      subject: "Takk for henvendelsen!",
+      text: `Hei ${name},\n\nTakk for henvendelsen. Vi tar kontakt så snart som mulig.\n\nMvh\nNordWeb`,
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #0f172a;">
+          <p>Hei ${name},</p>
+          <p>Takk for henvendelsen. Vi tar kontakt så snart som mulig.</p>
+          <p>Mvh<br />NordWeb</p>
+        </div>
+      `,
+    });
+
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("Contact form error", error);
